@@ -14,6 +14,7 @@ public class InterfaceTimer extends javax.swing.JFrame {
     Segundos segundo;
     Minutos minuto;
     Thread tMin, tSec;
+    private boolean pausa;
 
     public InterfaceTimer() {
         initComponents();
@@ -22,8 +23,11 @@ public class InterfaceTimer extends javax.swing.JFrame {
 
         segundo = new Segundos();
         tSec = new Thread(segundo);
+
         txtMin.setText("25");
         txtSec.setText("0");
+
+        this.pausa = true;
     }
 
     /**
@@ -163,8 +167,15 @@ public class InterfaceTimer extends javax.swing.JFrame {
 
     private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
         try {
-            minuto.stop();
-            segundo.stop();
+            if (this.pausa) {
+                tMin.suspend();
+                tSec.suspend();
+                this.pausa = false;
+            } else {
+                tMin.resume();
+                tSec.resume();
+                this.pausa = true;
+            }
         } catch (Exception ex) {
 
         }
@@ -231,41 +242,5 @@ public class InterfaceTimer extends javax.swing.JFrame {
     public static javax.swing.JTextField txtMin;
     public static javax.swing.JTextField txtSec;
     // End of variables declaration//GEN-END:variables
-    private int start_minuts;
-    private int start_seconds;
-    private int rest_minuts;
-    private int rest_seconds;
-    private int aux;
 
-    public int getStart_minuts() {
-        return start_minuts;
-    }
-
-    public void setStart_minuts(int start_minuts) {
-        this.start_minuts = start_minuts;
-    }
-
-    public int getStart_seconds() {
-        return start_seconds;
-    }
-
-    public void setStart_seconds(int start_seconds) {
-        this.start_seconds = start_seconds;
-    }
-
-    public int getRest_minuts() {
-        return rest_minuts;
-    }
-
-    public void setRest_minuts(int rest_minuts) {
-        this.rest_minuts = rest_minuts;
-    }
-
-    public int getRest_seconds() {
-        return rest_seconds;
-    }
-
-    public void setRest_seconds(int rest_seconds) {
-        this.rest_seconds = rest_seconds;
-    }
 }

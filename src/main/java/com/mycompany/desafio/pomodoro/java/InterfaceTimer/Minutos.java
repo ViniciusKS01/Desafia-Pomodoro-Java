@@ -7,6 +7,7 @@ package com.mycompany.desafio.pomodoro.java.InterfaceTimer;
 public class Minutos implements Runnable {
 
     private static boolean exit = false;
+    private boolean pausa = false;
 
     @Override
     public void run() {
@@ -20,12 +21,27 @@ public class Minutos implements Runnable {
             }
             try {
                 Thread.sleep(60000);
+                synchronized (this) {
+                    while (this.pausa) {
+                        wait();
+                    }
+                }
             } catch (Exception e) {
 
             }
         }
     }
+
     static void stop() {
         exit = true;
+    }
+
+    void suspend() {
+        this.pausa = true;
+    }
+
+    synchronized void resume() {
+        this.pausa = false;
+        notify();
     }
 }

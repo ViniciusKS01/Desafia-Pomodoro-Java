@@ -12,9 +12,16 @@ package com.mycompany.desafio.pomodoro.java.InterfaceTimer;
 public class InterfaceTimer extends javax.swing.JFrame {
 
     Segundos segundo;
+    Segundos_Rest segundo_rest;
+
     Minutos minuto;
-    Thread tMin, tSec;
+    Minutos_Rest minuto_rest;
+
+    Thread tMin, tSec, tMinRest, tSecRest;
+
     private boolean pausa;
+    private int i = 1;
+    private int limite = 4;
 
     public InterfaceTimer() {
         initComponents();
@@ -23,6 +30,12 @@ public class InterfaceTimer extends javax.swing.JFrame {
 
         segundo = new Segundos();
         tSec = new Thread(segundo);
+
+        segundo_rest = new Segundos_Rest();
+        tSecRest = new Thread(segundo_rest);
+
+        minuto_rest = new Minutos_Rest();
+        tMinRest = new Thread(minuto_rest);
 
         txtMin.setText("25");
         txtSec.setText("0");
@@ -155,14 +168,15 @@ public class InterfaceTimer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
-        txtMin.setText(txtMin.getText());
-        txtSec.setText(txtSec.getText());
-        if (!tMin.isAlive()) {
-            tMin.start();
-        }
-        if (!tSec.isAlive()) {
-            tSec.start();
-        }
+        tMin = new Thread(minuto);
+        tSec = new Thread(segundo);
+
+        txtMin.setText("25");
+        txtSec.setText("59");
+
+        tMin.start();
+        tSec.start();
+
     }//GEN-LAST:event_buttonStartActionPerformed
 
     private void buttonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStopActionPerformed
@@ -170,10 +184,14 @@ public class InterfaceTimer extends javax.swing.JFrame {
             if (this.pausa) {
                 tMin.suspend();
                 tSec.suspend();
+                tMinRest.suspend();
+                tSecRest.suspend();
                 this.pausa = false;
             } else {
                 tMin.resume();
                 tSec.resume();
+                tMinRest.resume();
+                tSecRest.resume();
                 this.pausa = true;
             }
         } catch (Exception ex) {
@@ -182,17 +200,32 @@ public class InterfaceTimer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStopActionPerformed
 
     private void buttonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonResetActionPerformed
-        try {
-            minuto.stop();
-            segundo.stop();
-            txtMin.setText("25");
-            txtSec.setText("0");
-        } catch (Exception ex) {
+        tMin.stop();
+        tSec.stop();
+        tSecRest.stop();
+        tMinRest.stop();
 
-        }
+        txtMin.setText("25");
+        txtSec.setText("0");
     }//GEN-LAST:event_buttonResetActionPerformed
 
     private void buttonRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRestActionPerformed
+        tMinRest = new Thread(minuto_rest);
+        tSecRest = new Thread(segundo_rest);
+
+        if (this.i == this.limite) {
+            txtMin.setText("10");
+            txtSec.setText("59");
+            tMinRest.start();
+            tSecRest.start();
+            this.i = 1;
+        } else {
+            txtMin.setText("5");
+            txtSec.setText("59");
+            tMinRest.start();
+            tSecRest.start();
+            this.i++;
+        }
 
     }//GEN-LAST:event_buttonRestActionPerformed
 

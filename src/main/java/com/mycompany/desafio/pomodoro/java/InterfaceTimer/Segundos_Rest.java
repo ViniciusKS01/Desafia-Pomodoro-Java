@@ -8,7 +8,7 @@ import java.net.URL;
  *
  * @author Vinícius Ivan
  */
-public class Segundos implements Runnable {
+public class Segundos_Rest implements Runnable {
 
     private boolean exit = false;
     private boolean pausa = false;
@@ -16,7 +16,7 @@ public class Segundos implements Runnable {
     @Override
     public void run() {
         int i = 1;
-        int limite = 25;
+        int limite = 5;
         int aux = Integer.parseInt(InterfaceTimer.txtSec.getText());
         while (!exit) {
             InterfaceTimer.txtSec.setText(aux + "");
@@ -25,7 +25,7 @@ public class Segundos implements Runnable {
                 if (i == limite) {
                     stop();
                     this.pausa = false;
-                    play("AudioRest");
+                    play("AudioStart");
                 } else {
                     i++;
                     aux = 59;

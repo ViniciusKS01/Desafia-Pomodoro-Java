@@ -4,7 +4,7 @@ package com.mycompany.desafio.pomodoro.java.InterfaceTimer;
  *
  * @author Vinícius Ivan
  */
-public class Minutos implements Runnable {
+public class Minutos_Rest implements Runnable {
 
     private boolean exit = false;
     private boolean pausa = false;
@@ -18,7 +18,7 @@ public class Minutos implements Runnable {
             aux--;
             if (aux < 0) {
                 stop();
-                this.pausa = false;
+                this.pausa = true;
             }
             try {
                 Thread.sleep(60000);

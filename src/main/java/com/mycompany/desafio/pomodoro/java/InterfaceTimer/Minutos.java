@@ -27,7 +27,7 @@ public class Minutos implements Runnable {
                         wait();
                     }
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
 
             }
         }

@@ -27,7 +27,7 @@ public class Minutos_Rest implements Runnable {
                         wait();
                     }
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
 
             }
         }

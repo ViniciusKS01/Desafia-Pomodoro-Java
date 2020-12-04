@@ -1,8 +1,6 @@
 package com.mycompany.desafio.pomodoro.java.InterfaceTimer;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,23 +10,33 @@ public class Segundos_Rest implements Runnable {
 
     private boolean exit = false;
     private boolean pausa = false;
+    private int limit_rest = 3;
+    private int limit = 5;
+    private int i_aux = 1;
 
     @Override
     public void run() {
         int i = 1;
-        int limite = 5;
+        if (this.i_aux == this.limit_rest) {
+            limit = 10;
+            this.i_aux = 1;
+        } else {
+            this.i_aux++;
+        }
         int aux = Integer.parseInt(InterfaceTimer.txtSec.getText());
         while (!exit) {
             InterfaceTimer.txtSec.setText(aux + "");
             aux--;
             if (aux < 0) {
-                if (i == limite) {
+                if (i == limit) {
                     stop();
                     this.pausa = false;
-                    play("AudioStart");
+                    JOptionPane.showMessageDialog(null, "Hora de Trabalhar");
                 } else {
                     i++;
                     aux = 59;
+                    InterfaceTimer.txtSec.setText(aux + "");
+                    aux--;
                 }
             }
             try {
@@ -38,7 +46,7 @@ public class Segundos_Rest implements Runnable {
                         wait();
                     }
                 }
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
 
             }
         }
@@ -57,9 +65,33 @@ public class Segundos_Rest implements Runnable {
         notify();
     }
 
-    public void play(String nomeAudio) {
-        URL url = InterfaceTimer.class.getResource(nomeAudio + ".m4a");
-        AudioClip audio = Applet.newAudioClip(url);
-        audio.play();
-    }
+    /*public void playSound() {
+        URL url = getClass().getResource("/com.mycompany.desafio.pomodoro.java.InterfaceTimer/AudioStart.wav");
+        AudioClip sound = Applet.newAudioClip(url);
+        sound.play();
+    }*/
+ /*public void playSound() {
+        try {
+            Clip sound = AudioSystem.getClip();
+            AudioInputStream url = AudioSystem.getAudioInputStream(getClass().getResource("/com.mycompany.desafio.pomodoro.java.InterfaceTimer/AudioStart.wav"));
+            sound.open(url);
+            sound.start();
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Segundos_Rest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Segundos_Rest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException ex) {
+            Logger.getLogger(Segundos_Rest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+ /*public void playSound(String sound) {
+        try {
+            File file = new File(sound);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+        }
+    }*/
 }

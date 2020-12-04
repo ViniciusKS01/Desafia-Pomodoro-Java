@@ -20,16 +20,17 @@ public class InterfaceTimer extends javax.swing.JFrame {
     Thread tMin, tSec, tMinRest, tSecRest;
 
     private boolean pausa;
-    private int i = 1;
-    private int limite = 4;
+    private int i;
+    private final int limit;
+    private String aux_min;
 
     public InterfaceTimer() {
         initComponents();
         minuto = new Minutos();
-        tMin = new Thread(minuto);
+        //tMin = new Thread(minuto);
 
         segundo = new Segundos();
-        tSec = new Thread(segundo);
+        //tSec = new Thread(segundo);
 
         segundo_rest = new Segundos_Rest();
         tSecRest = new Thread(segundo_rest);
@@ -41,6 +42,8 @@ public class InterfaceTimer extends javax.swing.JFrame {
         txtSec.setText("0");
 
         this.pausa = true;
+        this.i = 1;
+        this.limit = 4;
     }
 
     /**
@@ -168,12 +171,12 @@ public class InterfaceTimer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
+        aux_min = txtMin.getText();
         tMin = new Thread(minuto);
         tSec = new Thread(segundo);
 
-        txtMin.setText("25");
+        txtMin.setText(aux_min);
         txtSec.setText("59");
-
         tMin.start();
         tSec.start();
 
@@ -213,7 +216,7 @@ public class InterfaceTimer extends javax.swing.JFrame {
         tMinRest = new Thread(minuto_rest);
         tSecRest = new Thread(segundo_rest);
 
-        if (this.i == this.limite) {
+        if (this.i == this.limit) {
             txtMin.setText("10");
             txtSec.setText("59");
             tMinRest.start();
@@ -226,7 +229,6 @@ public class InterfaceTimer extends javax.swing.JFrame {
             tSecRest.start();
             this.i++;
         }
-
     }//GEN-LAST:event_buttonRestActionPerformed
 
     /**

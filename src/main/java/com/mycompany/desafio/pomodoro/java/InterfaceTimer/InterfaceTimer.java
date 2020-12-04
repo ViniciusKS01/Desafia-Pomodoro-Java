@@ -20,29 +20,25 @@ public class InterfaceTimer extends javax.swing.JFrame {
     Thread tMin, tSec, tMinRest, tSecRest;
 
     private boolean pausa;
-    private int i;
-    private final int limit;
-    private String aux_min;
+    private int limit;
 
     public InterfaceTimer() {
         initComponents();
         minuto = new Minutos();
-        //tMin = new Thread(minuto);
 
         segundo = new Segundos();
-        //tSec = new Thread(segundo);
 
         segundo_rest = new Segundos_Rest();
-        tSecRest = new Thread(segundo_rest);
 
         minuto_rest = new Minutos_Rest();
-        tMinRest = new Thread(minuto_rest);
+                tMinRest = new Thread(minuto_rest);
+        tSecRest = new Thread(segundo_rest);
 
         txtMin.setText("25");
-        txtSec.setText("0");
+        txtSec.setText("60");
+        qtdP.setText("0");
 
         this.pausa = true;
-        this.i = 1;
         this.limit = 4;
     }
 
@@ -64,6 +60,8 @@ public class InterfaceTimer extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtMin = new javax.swing.JTextField();
         txtSec = new javax.swing.JTextField();
+        qtdP = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,44 +106,60 @@ public class InterfaceTimer extends javax.swing.JFrame {
 
         txtSec.setText("0");
 
+        qtdP.setText("0");
+
+        jLabel2.setText("Quantidade P");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(txtSec, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
-                        .addContainerGap(112, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(buttonStart)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                                .addComponent(buttonStart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonStop)
+                                    .addComponent(buttonRest))
+                                .addGap(73, 73, 73))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(txtSec, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)))
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonStop)
-                            .addComponent(buttonRest))
-                        .addGap(73, 73, 73)
-                        .addComponent(buttonReset)
-                        .addGap(46, 46, 46))))
+                            .addComponent(buttonReset)
+                            .addComponent(qtdP, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(3, 3, 3)))
+                .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qtdP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStart)
@@ -171,12 +185,9 @@ public class InterfaceTimer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
-        aux_min = txtMin.getText();
         tMin = new Thread(minuto);
         tSec = new Thread(segundo);
 
-        txtMin.setText(aux_min);
-        txtSec.setText("59");
         tMin.start();
         tSec.start();
 
@@ -207,27 +218,25 @@ public class InterfaceTimer extends javax.swing.JFrame {
         tSec.stop();
         tSecRest.stop();
         tMinRest.stop();
-
         txtMin.setText("25");
-        txtSec.setText("0");
+        txtSec.setText("60");
     }//GEN-LAST:event_buttonResetActionPerformed
 
     private void buttonRestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRestActionPerformed
         tMinRest = new Thread(minuto_rest);
         tSecRest = new Thread(segundo_rest);
-
-        if (this.i == this.limit) {
+        int aux_rest = Integer.parseInt(qtdP.getText());
+        if (aux_rest == this.limit) {
             txtMin.setText("10");
-            txtSec.setText("59");
+            txtSec.setText("60");
             tMinRest.start();
             tSecRest.start();
-            this.i = 1;
+            this.limit = this.limit + 4;
         } else {
             txtMin.setText("5");
-            txtSec.setText("59");
+            txtSec.setText("60");
             tMinRest.start();
             tSecRest.start();
-            this.i++;
         }
     }//GEN-LAST:event_buttonRestActionPerformed
 
@@ -272,8 +281,10 @@ public class InterfaceTimer extends javax.swing.JFrame {
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonStop;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    public static javax.swing.JTextField qtdP;
     public static javax.swing.JTextField txtMin;
     public static javax.swing.JTextField txtSec;
     // End of variables declaration//GEN-END:variables

@@ -1,12 +1,5 @@
 package com.mycompany.desafio.pomodoro.java.InterfaceTimer;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.io.File;
-import java.net.URL;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +10,7 @@ public class Segundos implements Runnable {
 
     private boolean exit = false;
     private boolean pausa = false;
+    private int aux_min = 0;
 
     @Override
     public void run() {
@@ -28,12 +22,16 @@ public class Segundos implements Runnable {
             aux--;
             if (aux < 0) {
                 if (i == limit) {
+                    aux_min++;
+                    InterfaceTimer.qtdP.setText(aux_min + "");
                     stop();
                     this.pausa = false;
+                    InterfaceTimer.txtMin.setText("25");
+                    InterfaceTimer.txtSec.setText("60");
                     JOptionPane.showMessageDialog(null, "Hora de Descansar");
                 } else {
                     i++;
-                    aux = 59;
+                    aux = 60;
                     InterfaceTimer.txtSec.setText(aux + "");
                     aux--;
                 }
@@ -64,19 +62,4 @@ public class Segundos implements Runnable {
         notify();
     }
 
-    /*public void playSound() {
-        URL url = getClass().getResource("/com.mycompany.desafio.pomodoro.java.InterfaceTimer/AudioRest (online-audio-converter.com).wav");
-        AudioClip sound = Applet.newAudioClip(url);
-        sound.play();
-    }*/
- /*public static void playSound(String sound) {
-        try {
-            File file = new File(sound);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-        } catch (Exception e) {
-        }
-    }*/
 }
